@@ -1,0 +1,22 @@
+{
+  "names": [
+    "",
+    ""
+  ],
+  "memories": [
+    {
+      "id": "mv3eq6wg-uryhr",
+      "photos": [
+        "recuerdos/mv3eq6wg-uryhr-1.jpg"
+      ],
+      "caption": "",
+      "place": "",
+      "date": "2026-10-11",
+      "createdAt": 1791696937328,
+      "rotation": 0.41,
+      "fastener": "tape-corners",
+      "tape": 4,
+      "tapeTilt": -0.5
+    }
+  ]
+}

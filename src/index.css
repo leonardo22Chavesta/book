@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --font-hand: "Gochi Hand", "Comic Sans MS", cursive;
+  --font-script: "Caveat", cursive;
+  --font-note: "Patrick Hand", "Comic Sans MS", cursive;
+
+  --color-ink: #1f1d1a;
+  --color-paper: #fbf9f4;
+  --color-pin: #d94a3d;
+
+  --animate-pop: pop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+  --animate-fade: fade 0.25s ease-out both;
+  --animate-sheet: sheet 0.4s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  --animate-wiggle: wiggle 3s ease-in-out infinite;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-beat: beat 1.6s ease-in-out infinite;
+  --animate-rise: rise 1.8s cubic-bezier(0.2, 0.7, 0.4, 1) both;
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(24px) scale(0.9); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes sheet {
+    from { opacity: 0; transform: translateY(40%); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+  }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.18); }
+    30% { transform: scale(0.96); }
+    45% { transform: scale(1.1); }
+  }
+  @keyframes rise {
+    0%   { opacity: 0; transform: translateY(0) scale(0.4) rotate(var(--tilt, 0deg)); }
+    15%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-70vh) scale(1.1) rotate(calc(var(--tilt, 0deg) * -1)); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    background: var(--color-paper);
+  }
+  body {
+    color: var(--color-ink);
+    font-family: var(--font-note);
+    background: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (min-width: 768px) {
+    html, body { background: #8d8a85; }
+  }
+}
+
+@layer components {
+  /* Papel con cuadrícula de puntos */
+  .paper-bg {
+    background-color: var(--color-paper);
+    background-image:
+      radial-gradient(rgba(31, 29, 26, 0.09) 1px, transparent 1.3px),
+      radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.9), transparent 60%);
+    background-size: 22px 22px, 100% 100%;
+  }
+
+  /* Marco polaroid con sombra realista en capas */
+  .polaroid {
+    background: linear-gradient(180deg, #fffefb 0%, #f7f5ef 100%);
+    box-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.08),
+      0 3px 6px -2px rgba(0, 0, 0, 0.16),
+      0 14px 24px -10px rgba(0, 0, 0, 0.32);
+  }
+
+  /* Look de foto revelada: un poco desaturada, con viñeta */
+  .photo-vintage { filter: saturate(0.88) contrast(1.05) sepia(0.06); }
+  .photo-frame { position: relative; }
+  .photo-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), inset 0 0 28px rgba(0, 0, 0, 0.22);
+  }
+
+  /* Borde irregular dibujado a mano */
+  .sketch-border {
+    border: 2px solid var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  .sketch-border-alt {
+    border: 2px solid var(--color-ink);
+    border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+  }
+
+  /* Cinta washi con bordes rasgados */
+  .washi {
+    clip-path: polygon(
+      0% 8%, 4% 0%, 8% 10%, 12% 2%, 16% 8%, 20% 0%, 80% 0%, 84% 9%, 88% 1%, 92% 8%, 96% 0%, 100% 7%,
+      100% 93%, 96% 100%, 92% 91%, 88% 100%, 84% 92%, 80% 100%, 20% 100%, 16% 92%, 12% 100%, 8% 90%, 4% 100%, 0% 92%
+    );
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    mix-blend-mode: multiply;
+  }
+
+  /* Renglones de cuaderno para la nota */
+  .lined {
+    background-image: repeating-linear-gradient(
+      to bottom, transparent 0, transparent 31px, rgba(31, 29, 26, 0.18) 31px, rgba(31, 29, 26, 0.18) 32px
+    );
+    line-height: 32px;
+  }
+
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
